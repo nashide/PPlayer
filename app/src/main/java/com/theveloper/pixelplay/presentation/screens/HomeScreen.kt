@@ -104,7 +104,7 @@ fun HomeScreen(
         }
     }
 
-    val yourMixSong: String = "Today's Mix for you"
+    val yourMixSong: String = "今日为你准备的歌单"
 
     // 2) Observar sólo el currentSong (o null) para saber si mostrar padding
     val currentSong by remember(playerViewModel.stablePlayerState) {
