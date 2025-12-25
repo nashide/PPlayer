@@ -144,13 +144,13 @@ fun DailyMixHeader(thumbnails: ImmutableList<Song>) {
         ) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = "DAILY MIX",
+                    text = "每日精选",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.ExtraBold,
                     color = MaterialTheme.colorScheme.onPrimary
                 )
                 Text(
-                    text = "Based on History",
+                    text = "基于历史听歌记录",
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.Normal,
                     color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f)
@@ -262,7 +262,7 @@ private fun ViewAllDailyMixButton(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Check all of Daily Mix",
+                text = "查看全部每日精选",
                 style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Medium
             )
