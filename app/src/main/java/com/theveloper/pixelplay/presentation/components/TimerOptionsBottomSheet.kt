@@ -123,7 +123,7 @@ fun TimerOptionsBottomSheet(
             ) {
                 Text(
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                    text = "Sleep Timer",
+                    text = "睡眠定时",
                     fontFamily = GoogleSansRounded,
                     style = MaterialTheme.typography.headlineMedium,
                     color = MaterialTheme.colorScheme.primary
