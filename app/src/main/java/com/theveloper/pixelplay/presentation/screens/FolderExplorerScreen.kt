@@ -59,7 +59,7 @@ import java.io.File
 //            TopAppBar(
 //                title = {
 //                    Text(
-//                        text = if (fromSetup) "Setup: Choose music folders" else "Music folders",
+//                        text = if (fromSetup) "Setup: 选择音乐文件夹" else "音乐文件夹",
 //                        style = MaterialTheme.typography.titleMedium
 //                    )
 //                },
@@ -69,7 +69,7 @@ import java.io.File
 //                    }) {
 //                        Icon(
 //                            imageVector = Icons.Rounded.Close,
-//                            contentDescription = "Close"
+//                            contentDescription = "关闭"
 //                        )
 //                    }
 //                },
@@ -77,7 +77,7 @@ import java.io.File
 //                    IconButton(onClick = onDone) {
 //                        Icon(
 //                            imageVector = Icons.Rounded.Check,
-//                            contentDescription = "Done"
+//                            contentDescription = "完成"
 //                        )
 //                    }
 //                }
@@ -98,7 +98,7 @@ import java.io.File
 //            onRefresh = onRefresh,
 //            onSmartViewToggle = onSmartViewToggle,
 //            onDone = onDone,
-//            title = if (fromSetup) "Select folders for setup" else "Select music folders",
+//            title = if (fromSetup) "选择文件夹以完成设置" else "选择音乐文件夹",
 //            leadingContent = null,
 //            modifier = Modifier.fillMaxSize().padding(padding)
 //        )
