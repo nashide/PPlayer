@@ -5,10 +5,10 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 sealed class Screen(val route: String) {
-    object Home : Screen("home")
-    object Search : Screen("search")
-    object Library : Screen("library")
-    object Settings : Screen("settings") // Nueva pantalla,
+    object Home : Screen("首页")
+    object Search : Screen("搜索")
+    object Library : Screen("媒体库")
+    object Settings : Screen("设置") // Nueva pantalla,
     object Experimental : Screen("experimental_settings")
     object NavBarCrRad : Screen("nav_bar_corner_radius")
     object PlaylistDetail : Screen("playlist_detail/{playlistId}") { // Nueva pantalla
@@ -35,7 +35,7 @@ sealed class Screen(val route: String) {
             if (playlistId != null) "edit_transition?playlistId=$playlistId" else "edit_transition"
     }
 
-    object About : Screen("about")
+    object About : Screen("关于")
 
     object ArtistSettings : Screen("artist_settings")
     object DelimiterConfig : Screen("delimiter_config")
