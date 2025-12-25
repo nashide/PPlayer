@@ -458,7 +458,7 @@ fun SettingsScreen(
             item(key = "appearance_section") {
                 // Sección de apariencia
                 SettingsSection(
-                    title = "Appearance",
+                    title = "外观样式",
                     icon = {
                         Icon(
                             imageVector = Icons.Rounded.Palette,
@@ -473,12 +473,12 @@ fun SettingsScreen(
                             .clip(shape = RoundedCornerShape(24.dp))
                     ){
                         ThemeSelectorItem(
-                            label = "App Theme",
-                            description = "Switch between light, dark, or follow system appearance.",
+                            label = "应用主题",
+                            description = "在浅色、深色模式间切换，或跟随系统外观",
                             options = mapOf(
-                                AppThemeMode.LIGHT to "Light Theme",
-                                AppThemeMode.DARK to "Dark Theme",
-                                AppThemeMode.FOLLOW_SYSTEM to "Follow System"
+                                AppThemeMode.LIGHT to "浅色",
+                                AppThemeMode.DARK to "深色",
+                                AppThemeMode.FOLLOW_SYSTEM to "跟随系统"
                             ),
                             selectedKey = uiState.appThemeMode,
                             onSelectionChanged = { settingsViewModel.setAppThemeMode(it) },
@@ -492,11 +492,11 @@ fun SettingsScreen(
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         ThemeSelectorItem(
-                            label = "Player Theme",
-                            description = "Choose the appearance for the floating player.",
+                            label = "播放器主题",
+                            description = "选择悬浮播放器的外观样式",
                             options = mapOf(
-                                ThemePreference.ALBUM_ART to "Album Art",
-                                ThemePreference.DYNAMIC to "System Dynamic"
+                                ThemePreference.ALBUM_ART to "专辑封面",
+                                ThemePreference.DYNAMIC to "系统动态效果"
                             ),
                             selectedKey = uiState.playerThemePreference,
                             onSelectionChanged = { settingsViewModel.setPlayerThemePreference(it) },
@@ -510,11 +510,11 @@ fun SettingsScreen(
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         ThemeSelectorItem(
-                            label = "NavBar Style",
-                            description = "Choose the appearance for the navigation bar.",
+                            label = "导航栏样式",
+                            description = "选择导航栏的外观样式",
                             options = mapOf(
-                                NavBarStyle.DEFAULT to "Default",
-                                NavBarStyle.FULL_WIDTH to "Full Width"
+                                NavBarStyle.DEFAULT to "默认",
+                                NavBarStyle.FULL_WIDTH to "全屏宽度"
                             ),
                             selectedKey = uiState.navBarStyle,
                             onSelectionChanged = { settingsViewModel.setNavBarStyle(it) },
@@ -529,8 +529,8 @@ fun SettingsScreen(
                         if (uiState.navBarStyle == NavBarStyle.DEFAULT) {
                             Spacer(modifier = Modifier.height(4.dp))
                             SettingsItem(
-                                title = "NavBar Corner Radius",
-                                subtitle = "Adjust the corner radius of the navigation bar.",
+                                title = "导航栏圆角半径",
+                                subtitle = "调节导航栏的圆角半径",
                                 leadingIcon = {
                                     Icon(
                                         painter = painterResource(id = R.drawable.rounded_rounded_corner_24),
@@ -541,7 +541,7 @@ fun SettingsScreen(
                                 trailingIcon = {
                                     Icon(
                                         imageVector = Icons.Rounded.ChevronRight,
-                                        contentDescription = "Adjust radius",
+                                        contentDescription = "调节圆角半径",
                                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
                                 },
@@ -550,11 +550,11 @@ fun SettingsScreen(
                         }
                         Spacer(modifier = Modifier.height(4.dp))
                         ThemeSelectorItem(
-                            label = "Carousel Style",
-                            description = "Choose the appearance for the album carousel.",
+                            label = "轮播样式",
+                            description = "选择专辑轮播的外观样式",
                             options = mapOf(
-                                CarouselStyle.NO_PEEK to "No Peek",
-                                CarouselStyle.ONE_PEEK to "One Peek",
+                                CarouselStyle.NO_PEEK to "无预览",
+                                CarouselStyle.ONE_PEEK to "单次预览",
                                 //CarouselStyle.TWO_PEEK to "Two Peeks"
                             ),
                             selectedKey = uiState.carouselStyle,
@@ -569,12 +569,12 @@ fun SettingsScreen(
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         ThemeSelectorItem(
-                            label = "Default Tab",
-                            description = "Choose the Default launch tab.",
+                            label = "默认标签页",
+                            description = "选择默认启动标签页",
                             options = mapOf(
-                                LaunchTab.HOME to "Home",
-                                LaunchTab.SEARCH to "Search",
-                                LaunchTab.LIBRARY to "Library",
+                                LaunchTab.HOME to "在听",
+                                LaunchTab.SEARCH to "搜索",
+                                LaunchTab.LIBRARY to "音乐库",
                             ),
                             selectedKey = uiState.launchTab,
                             onSelectionChanged = { settingsViewModel.setLaunchTab(it) },
@@ -588,11 +588,11 @@ fun SettingsScreen(
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         ThemeSelectorItem(
-                            label = "Library Navigation",
-                            description = "Choose how to move between Library tabs.",
+                            label = "曲库导航",
+                            description = "选择曲库标签页的切换方式",
                             options = mapOf(
-                                LibraryNavigationMode.TAB_ROW to "Tab row (default)",
-                                LibraryNavigationMode.COMPACT_PILL to "Compact pill & grid"
+                                LibraryNavigationMode.TAB_ROW to "标签栏（默认）",
+                                LibraryNavigationMode.COMPACT_PILL to "简约胶囊网格布局"
                             ),
                             selectedKey = uiState.libraryNavigationMode,
                             onSelectionChanged = { settingsViewModel.setLibraryNavigationMode(it) },
@@ -612,7 +612,7 @@ fun SettingsScreen(
 
             item(key = "playback_section") {
                 SettingsSection(
-                    title = "Playback",
+                    title = "播放控制",
                     icon = {
                         Icon(
                             imageVector = Icons.Rounded.Palette,
@@ -627,11 +627,11 @@ fun SettingsScreen(
                             .clip(shape = RoundedCornerShape(24.dp))
                     ) {
                         ThemeSelectorItem(
-                            label = "Keep playing after closing",
-                            description = "If off, removing the app from recents will stop playback.",
+                            label = "关闭后继续播放",
+                            description = "若关闭此功能，在最近应用列表中移除本应用将终止播放。",
                             options = mapOf(
-                                "true" to "On",
-                                "false" to "Off"
+                                "true" to "开",
+                                "false" to "关"
                             ),
                             selectedKey = if (uiState.keepPlayingInBackground) "true" else "false",
                             onSelectionChanged = { key ->
@@ -647,11 +647,11 @@ fun SettingsScreen(
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         ThemeSelectorItem(
-                            label = "Auto-play on cast connect/disconnect",
-                            description = "Start playing immediately after switching cast connections.",
+                            label = "投屏连接 / 断开时自动播放",
+                            description = "切换投屏连接后立即开始播放",
                             options = mapOf(
-                                "false" to "Enabled",
-                                "true" to "Disabled"
+                                "false" to "开启",
+                                "true" to "关闭"
                             ),
                             selectedKey = if (uiState.disableCastAutoplay) "true" else "false",
                             onSelectionChanged = { key ->
@@ -667,11 +667,11 @@ fun SettingsScreen(
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         ThemeSelectorItem(
-                            label = "Crossfade",
-                            description = "Enable smooth transition between songs.",
+                            label = "交叉渐变播放",
+                            description = "开启歌曲间的平滑过渡",
                             options = mapOf(
-                                "true" to "Enabled",
-                                "false" to "Disabled"
+                                "true" to "开启",
+                                "false" to "关闭"
                             ),
                             selectedKey = if (uiState.isCrossfadeEnabled) "true" else "false",
                             onSelectionChanged = { key ->
@@ -688,7 +688,7 @@ fun SettingsScreen(
                         if (uiState.isCrossfadeEnabled) {
                             Spacer(modifier = Modifier.height(4.dp))
                             SliderSettingsItem(
-                                label = "Crossfade Duration",
+                                label = "淡入淡出时长",
                                 value = uiState.crossfadeDuration.toFloat(),
                                 valueRange = 2000f..12000f,
                                 onValueChange = { settingsViewModel.setCrossfadeDuration(it.toInt()) },
