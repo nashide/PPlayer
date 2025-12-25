@@ -184,7 +184,7 @@ fun SetupScreen(
                         setupViewModel.setSetupComplete()
                         onSetupComplete()
                     } else {
-                        Toast.makeText(context, "Please grant all required permissions.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "请授予所有必要权限", Toast.LENGTH_SHORT).show()
                     }
                 }
             )
@@ -264,15 +264,15 @@ fun DirectorySelectionPage(
     val canOpenDirectoryPicker = hasMediaPermission && hasAllFilesAccess
 
     PermissionPageLayout(
-        title = "Excluded folders",
-        description = "All folders are scanned by default. Pick any locations you want to ignore when building your library.",
-        buttonText = "Choose folders to ignore",
+        title = "排除文件夹",
+        description = "默认情况下将扫描所有文件夹。创建媒体库时，可勾选你想要忽略的文件夹位置。",
+        buttonText = "选择需忽略的文件夹",
         buttonEnabled = canOpenDirectoryPicker,
         onGrantClicked = {
             if (canOpenDirectoryPicker) {
                 showDirectoryPicker = true
             } else {
-                Toast.makeText(context, "Grant storage permissions first", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "请先授予存储权限", Toast.LENGTH_SHORT).show()
             }
         },
         icons = persistentListOf(
@@ -284,7 +284,7 @@ fun DirectorySelectionPage(
         )
     ) {
         TextButton(onClick = onSkip) {
-            Text("Skip for now")
+            Text("暂时跳过")
         }
     }
 
@@ -339,7 +339,7 @@ fun WelcomePage() {
             verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             Text(
-                text = "Welcome to ",
+                text = "欢迎使用 ",
                 style = ExpTitleTypography.displayLarge.copy(
                     fontSize = 42.sp,
                     lineHeight = 1.1.em
@@ -374,7 +374,7 @@ fun WelcomePage() {
                     fontWeight = FontWeight.Black
                 )
                 Text(
-                    text = "Beta",
+                    text = "测试版",
                     style = MaterialTheme.typography.labelLarge,
                     fontWeight = FontWeight.SemiBold
                 )
@@ -436,7 +436,7 @@ fun WelcomePage() {
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
-        Text(text = "Let's get everything set up for you.", style = MaterialTheme.typography.bodyLarge)
+        Text(text = "这就为你完成全部设置", style = MaterialTheme.typography.bodyLarge)
     }
 }
 
@@ -461,10 +461,10 @@ fun MediaPermissionPage(uiState: SetupUiState) {
     val isGranted = uiState.mediaPermissionGranted || permissionState.allPermissionsGranted
 
     PermissionPageLayout(
-        title = "Media Permission",
+        title = "媒体权限",
         granted = isGranted,
-        description = "PixelPlayer needs access to your audio files to build your music library.",
-        buttonText = if (isGranted) "Permission Granted" else "Grant Media Permission",
+        description = "PixelPlayer 需要获取你的音频文件访问权限，以创建你的音乐媒体库。",
+        buttonText = if (isGranted) "权限已授予" else "授予媒体权限",
         icons = mediaIcons,
         onGrantClicked = {
             if (!isGranted) {
@@ -492,10 +492,10 @@ fun NotificationsPermissionPage(uiState: SetupUiState) {
     val isGranted = uiState.notificationsPermissionGranted || permissionState.allPermissionsGranted
 
     PermissionPageLayout(
-        title = "Notifications",
+        title = "通知",
         granted = isGranted,
-        description = "Enable notifications to control your music from the lock screen and notification shade.",
-        buttonText = if (isGranted) "Permission Granted" else "Enable Notifications",
+        description = "开启通知，即可在锁屏界面和通知栏控制音乐播放。",
+        buttonText = if (isGranted) "权限已授予" else "开启通知",
         icons = notificationIcons,
         onGrantClicked = {
             if (!isGranted) {
@@ -519,10 +519,10 @@ fun AllFilesPermissionPage(uiState: SetupUiState) {
     val isGranted = uiState.allFilesAccessGranted
 
     PermissionPageLayout(
-        title = "All Files Access",
+        title = "访问所有文件",
         granted = isGranted,
-        description = "For some Android versions, PixelPlayer needs broader file access to find all your music.",
-        buttonText = if(isGranted) "Permission Granted" else "Go to Settings",
+        description = "对于部分安卓系统版本，PixelPlayer 需要更广泛的文件访问权限，才能检索到你所有的音乐。",
+        buttonText = if(isGranted) "权限已授予" else "前往设置",
         icons = fileIcons,
         onGrantClicked = {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !isGranted) {
@@ -551,14 +551,14 @@ fun FinishPage() {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        Text(text = "All Set!", style = MaterialTheme.typography.headlineLarge)
+        Text(text = "所有设置!", style = MaterialTheme.typography.headlineLarge)
         Spacer(modifier = Modifier.height(16.dp))
         PermissionIconCollage(
             modifier = Modifier.height(230.dp),
             icons = finishIcons
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Text(text = "You're ready to enjoy your music.", style = MaterialTheme.typography.bodyLarge)
+        Text(text = "你已可以开始畅享音乐.", style = MaterialTheme.typography.bodyLarge)
     }
 }
 
@@ -694,7 +694,7 @@ fun SetupBottomBar(
                 ) { targetPage ->
                     if (targetPage == 0) {
                         Text(
-                            text = "Let's Go!",
+                            text = "开始!",
                             style = MaterialTheme.typography.titleLarge,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.primary,
