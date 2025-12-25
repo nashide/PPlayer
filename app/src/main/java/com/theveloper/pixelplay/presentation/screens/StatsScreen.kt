@@ -323,7 +323,7 @@ private fun StatsTopBar(
             }
 
             ExpressiveTopBarContent(
-                title = "Listening Stats",
+                title = "听歌数据统计",
                 collapseFraction = collapseFraction,
                 modifier = Modifier
                     .fillMaxSize()
