@@ -517,13 +517,13 @@ class PlayerViewModel @Inject constructor(
                 try {
                     Json.decodeFromString<List<String>>(orderJson)
                 } catch (e: Exception) {
-                    listOf("SONGS", "ALBUMS", "ARTIST", "PLAYLISTS", "FOLDERS", "LIKED")
+                    listOf("歌曲", "专辑", "歌手", "歌单", "文件夹", "收藏")
                 }
             } else {
-                listOf("SONGS", "ALBUMS", "ARTIST", "PLAYLISTS", "FOLDERS", "LIKED")
+                listOf("歌曲", "专辑", "歌手", "歌单", "文件夹", "收藏")
             }
         }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), listOf("SONGS", "ALBUMS", "ARTIST", "PLAYLISTS", "FOLDERS", "LIKED"))
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), listOf("歌曲", "专辑", "歌手", "歌单", "文件夹", "收藏"))
 
     private val _loadedTabs = MutableStateFlow(emptySet<String>())
     private var lastBlockedDirectories: Set<String>? = null
