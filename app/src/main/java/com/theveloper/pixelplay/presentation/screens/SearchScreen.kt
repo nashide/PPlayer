@@ -512,13 +512,13 @@ fun SearchHistoryList(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                "Recent Searches",
+                "最近搜索",
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.Bold
             )
             if (historyItems.isNotEmpty()) {
                 TextButton(onClick = onClearAllHistory) {
-                    Text("Clear All")
+                    Text("清除所有")
                 }
             }
         }
@@ -607,7 +607,7 @@ fun EmptySearchResults(searchQuery: String, colorScheme: ColorScheme) {
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = "Try a different search term or check your filters.",
+            text = "可尝试更换搜索关键词，或检查筛选条件",
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
             textAlign = TextAlign.Center
@@ -637,7 +637,7 @@ fun SearchResultsList(
                 .padding(16.dp),
             contentAlignment = Alignment.Center
         ) {
-            Text("No results found.", style = MaterialTheme.typography.bodyLarge)
+            Text("未找到结果", style = MaterialTheme.typography.bodyLarge)
         }
         return
     }
