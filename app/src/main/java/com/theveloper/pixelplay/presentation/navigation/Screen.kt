@@ -7,7 +7,7 @@ import androidx.compose.runtime.Immutable
 sealed class Screen(val route: String) {
     object Home : Screen("首页")
     object Search : Screen("搜索")
-    object Library : Screen("媒体库")
+    object Library : Screen("音乐库")
     object Settings : Screen("设置") // Nueva pantalla,
     object Experimental : Screen("experimental_settings")
     object NavBarCrRad : Screen("nav_bar_corner_radius")
