@@ -144,7 +144,7 @@ private fun OverviewContent(summary: PlaybackStatsRepository.PlaybackStatsSummar
         Row(horizontalArrangement = Arrangement.spacedBy(24.dp)) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = "Total plays",
+                    text = "总播放次数",
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -157,7 +157,7 @@ private fun OverviewContent(summary: PlaybackStatsRepository.PlaybackStatsSummar
             }
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = "Avg per day",
+                    text = "日均播放量",
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -173,7 +173,7 @@ private fun OverviewContent(summary: PlaybackStatsRepository.PlaybackStatsSummar
         if (topTrack != null) {
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text(
-                    text = "Top track",
+                    text = "最常听歌曲",
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -185,7 +185,7 @@ private fun OverviewContent(summary: PlaybackStatsRepository.PlaybackStatsSummar
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = "${topTrack.artist} • ${topTrack.playCount} plays",
+                    text = "${topTrack.artist} • ${topTrack.playCount} 次",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 1,
