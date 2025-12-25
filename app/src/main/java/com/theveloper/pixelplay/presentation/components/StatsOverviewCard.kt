@@ -91,7 +91,7 @@ fun StatsOverviewCard(
                         Modifier.padding(start = 24.dp, top = 24.dp, bottom = 24.dp)
                     ) {
                         Text(
-                            text = "Listening stats",
+                            text = "听歌数据统计",
                             style = MaterialTheme.typography.titleMedium,
                             color = MaterialTheme.colorScheme.onSurface
                         )
