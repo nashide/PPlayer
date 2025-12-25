@@ -45,70 +45,76 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.theveloper.pixelplay.R
-import com.theveloper.pixelplay.data.model.SyncedLine
-import com.theveloper.pixelplay.data.model.SyncedWord
-import com.theveloper.pixelplay.data.repository.LyricsSearchResult
-import com.theveloper.pixelplay.presentation.screens.TabAnimation
-import com.theveloper.pixelplay.presentation.components.subcomps.FetchLyricsDialog
-import com.theveloper.pixelplay.presentation.components.subcomps.PlayerSeekBar
-import com.theveloper.pixelplay.presentation.viewmodel.LyricsSearchUiState
-import com.theveloper.pixelplay.presentation.viewmodel.PlayerUiState
-import com.theveloper.pixelplay.presentation.viewmodel.StablePlayerState
-import com.theveloper.pixelplay.ui.theme.GoogleSansRounded
-import com.theveloper.pixelplay.utils.BubblesLine
-import com.theveloper.pixelplay.utils.ProviderText
+import com.theveloper.pixelplay.data.model.SyncedLine // 同步歌词行
+import com.theveloper.pixelplay.data.model.SyncedWord // 同步歌词单词
+import com.theveloper.pixelplay.data.repository.LyricsSearchResult // 歌词搜索结果
+import com.theveloper.pixelplay.presentation.screens.TabAnimation // 标签页动画
+import com.theveloper.pixelplay.presentation.components.subcomps.FetchLyricsDialog // 获取歌词弹窗
+import com.theveloper.pixelplay.presentation.components.subcomps.PlayerSeekBar // 播放器进度条
+import com.theveloper.pixelplay.presentation.viewmodel.LyricsSearchUiState // 歌词搜索UI状态
+import com.theveloper.pixelplay.presentation.viewmodel.PlayerUiState // 播放器UI状态
+import com.theveloper.pixelplay.presentation.viewmodel.StablePlayerState // 播放器稳定状态
+import com.theveloper.pixelplay.ui.theme.GoogleSansRounded // GoogleSansRounded字体
+import com.theveloper.pixelplay.utils.BubblesLine // 气泡行（无歌词占位）
+import com.theveloper.pixelplay.utils.ProviderText // 来源文本
 import com.theveloper.pixelplay.presentation.components.snapping.ExperimentalSnapperApi
-import com.theveloper.pixelplay.presentation.components.snapping.SnapperLayoutInfo
-import com.theveloper.pixelplay.presentation.components.snapping.rememberLazyListSnapperLayoutInfo
-import com.theveloper.pixelplay.presentation.components.snapping.rememberSnapperFlingBehavior
-import com.theveloper.pixelplay.utils.LyricsUtils
+import com.theveloper.pixelplay.presentation.components.snapping.SnapperLayoutInfo // 吸附布局信息
+import com.theveloper.pixelplay.presentation.components.snapping.rememberLazyListSnapperLayoutInfo // 获取列表吸附布局信息
+import com.theveloper.pixelplay.presentation.components.snapping.rememberSnapperFlingBehavior // 获取吸附滑动行为
+import com.theveloper.pixelplay.utils.LyricsUtils // 歌词工具类
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
-import racra.compose.smooth_corner_rect_library.AbsoluteSmoothCornerShape
+import racra.compose.smooth_corner_rect_library.AbsoluteSmoothCornerShape // 绝对平滑圆角形状
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LyricsSheet(
-    stablePlayerStateFlow: StateFlow<StablePlayerState>,
-    playerUiStateFlow: StateFlow<PlayerUiState>,
-    lyricsSearchUiState: LyricsSearchUiState,
-    resetLyricsForCurrentSong: () -> Unit,
-    onSearchLyrics: (Boolean) -> Unit,
-    onPickResult: (LyricsSearchResult) -> Unit,
-    onImportLyrics: () -> Unit,
-    onDismissLyricsSearch: () -> Unit,
-    lyricsTextStyle: TextStyle,
-    backgroundColor: Color,
-    onBackgroundColor: Color,
-    containerColor: Color,
-    contentColor: Color,
-    accentColor: Color,
-    onAccentColor: Color,
-    tertiaryColor: Color,
-    onTertiaryColor: Color,
-    onBackClick: () -> Unit,
-    onSeekTo: (Long) -> Unit,
-    onPlayPause: () -> Unit, // New parameter
+    stablePlayerStateFlow: StateFlow<StablePlayerState>, // 播放器稳定状态流
+    playerUiStateFlow: StateFlow<PlayerUiState>, // 播放器UI状态流
+    lyricsSearchUiState: LyricsSearchUiState, // 歌词搜索UI状态
+    resetLyricsForCurrentSong: () -> Unit, // 重置当前歌曲歌词
+    onSearchLyrics: (Boolean) -> Unit, // 搜索歌词回调
+    onPickResult: (LyricsSearchResult) -> Unit, // 选择搜索结果回调
+    onImportLyrics: () -> Unit, // 导入歌词回调
+    onDismissLyricsSearch: () -> Unit, // 关闭歌词搜索回调
+    lyricsTextStyle: TextStyle, // 歌词文本样式
+    backgroundColor: Color, // 背景色
+    onBackgroundColor: Color, // 背景内容色
+    containerColor: Color, // 容器色
+    contentColor: Color, // 内容色
+    accentColor: Color, // 强调色
+    onAccentColor: Color, // 强调内容色
+    tertiaryColor: Color, // 第三色
+    onTertiaryColor: Color, // 第三内容色
+    onBackClick: () -> Unit, // 返回按钮点击回调
+    onSeekTo: (Long) -> Unit, // 进度跳转回调
+    onPlayPause: () -> Unit, // 播放/暂停回调（新增参数）
     modifier: Modifier = Modifier,
-    highlightZoneFraction: Float = 0.22f,
-    highlightOffsetDp: Dp = 32.dp,
-    autoscrollAnimationSpec: AnimationSpec<Float> = tween(durationMillis = 450, easing = FastOutSlowInEasing)
+    highlightZoneFraction: Float = 0.22f, // 高亮区域占比
+    highlightOffsetDp: Dp = 32.dp, // 高亮偏移量
+    autoscrollAnimationSpec: AnimationSpec<Float> = tween(durationMillis = 450, easing = FastOutSlowInEasing) // 自动滚动动画配置
 ) {
     BackHandler { onBackClick() }
     val stablePlayerState by stablePlayerStateFlow.collectAsState()
 
+    // 衍生状态：是否正在加载歌词
     val isLoadingLyrics by remember { derivedStateOf { stablePlayerState.isLoadingLyrics } }
+    // 衍生状态：歌词内容
     val lyrics by remember { derivedStateOf { stablePlayerState.lyrics } }
+    // 衍生状态：是否正在播放
     val isPlaying by remember { derivedStateOf { stablePlayerState.isPlaying } }
+    // 衍生状态：当前歌曲
     val currentSong by remember { derivedStateOf { stablePlayerState.currentSong } }
 
     val context = LocalContext.current
 
+    // 是否显示获取歌词弹窗
     var showFetchLyricsDialog by remember { mutableStateOf(false) }
 
+    // 监听歌曲/歌词/加载状态变化，控制弹窗显示
     LaunchedEffect(currentSong, lyrics, isLoadingLyrics) {
         if (currentSong != null && lyrics == null && !isLoadingLyrics) {
             showFetchLyricsDialog = true
@@ -117,6 +123,7 @@ fun LyricsSheet(
         }
     }
 
+    // 显示获取歌词弹窗
     if (showFetchLyricsDialog) {
         FetchLyricsDialog(
             uiState = lyricsSearchUiState,
@@ -126,6 +133,7 @@ fun LyricsSheet(
             onDismiss = {
                 showFetchLyricsDialog = false
                 onDismissLyricsSearch()
+                // 若无歌词且未加载，返回上一级
                 if (lyrics == null && !isLoadingLyrics) {
                     onBackClick()
                 }
@@ -134,21 +142,24 @@ fun LyricsSheet(
         )
     }
 
+    // 是否显示同步歌词（区分同步/静态歌词）
     var showSyncedLyrics by remember(lyrics) {
         mutableStateOf(
             when {
-                lyrics?.synced != null -> true
-                lyrics?.plain != null -> false
-                else -> null
+                lyrics?.synced != null -> true // 有同步歌词则显示
+                lyrics?.plain != null -> false // 只有静态歌词则不显示
+                else -> null // 无歌词则为null
             }
         )
     }
 
+    // 播放按钮圆角动画
     val fabShapeCornerRadius by animateDpAsState(
         targetValue = if (isPlaying) 24.dp else 50.dp,
-        label = "fabShapeAnimation"
+        label = "悬浮按钮形状动画"
     )
 
+    // 构建悬浮按钮平滑圆角形状
     var fabShape = AbsoluteSmoothCornerShape(
         cornerRadiusTL = fabShapeCornerRadius,
         smoothnessAsPercentBL = 60,
@@ -160,18 +171,22 @@ fun LyricsSheet(
         smoothnessAsPercentTR = 60
     )
 
-    val tabTitles = listOf("Synced", "Static")
+    // 标签页标题
+    val tabTitles = listOf("同步歌词", "静态歌词")
 
+    // 脚手架布局
     Scaffold(
         modifier = modifier
             .fillMaxSize()
-            .clip(RoundedCornerShape(32.dp)),
+            .clip(RoundedCornerShape(32.dp)), // 裁剪为圆角
         containerColor = containerColor,
         contentColor = contentColor,
+        // 顶部导航栏
         topBar = {
             Box(
                 modifier = Modifier.fillMaxWidth()
             ) {
+                // 顶部渐变背景
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -191,20 +206,21 @@ fun LyricsSheet(
                                 )
                             )
                         )
-                ) {
+                )
 
-                }
                 Column(
                     Modifier.align(Alignment.TopCenter)
                 ) {
+                    // 居中顶部应用栏
                     CenterAlignedTopAppBar(
                         title = {
                             Text(
-                                text = "Lyrics",
+                                text = "歌词",
                                 fontWeight = FontWeight.Bold,
                                 color = onBackgroundColor
                             )
                         },
+                        // 返回按钮
                         navigationIcon = {
                             FilledIconButton(
                                 modifier = Modifier.padding(start = 12.dp),
@@ -216,10 +232,11 @@ fun LyricsSheet(
                             ) {
                                 Icon(
                                     imageVector = Icons.Rounded.ArrowBack,
-                                    contentDescription = context.resources.getString(R.string.close_lyrics_sheet)
+                                    contentDescription = context.resources.getString(R.string.close_lyrics_sheet) // 关闭歌词面板
                                 )
                             }
                         },
+                        // 更多操作按钮
                         actions = {
                             var expanded by remember { mutableStateOf(false) }
                             IconButton(
@@ -230,9 +247,10 @@ fun LyricsSheet(
                             ) {
                                 Icon(
                                     imageVector = Icons.Filled.MoreVert,
-                                    contentDescription = "Lyrics options",
+                                    contentDescription = "歌词选项",
                                     tint = onBackgroundColor
                                 )
+                                // 下拉菜单
                                 DropdownMenu(
                                     shape = AbsoluteSmoothCornerShape(
                                         cornerRadiusBL = 20.dp,
@@ -255,7 +273,7 @@ fun LyricsSheet(
                                                 contentDescription = null
                                             )
                                         },
-                                        text = { Text(text = "Reset imported lyrics") },
+                                        text = { Text(text = "重置已导入歌词") },
                                         onClick = {
                                             expanded = false
                                             resetLyricsForCurrentSong()
@@ -268,6 +286,8 @@ fun LyricsSheet(
                             containerColor = Color.Transparent
                         )
                     )
+
+                    // 同时有同步和静态歌词时显示标签页
                     if (lyrics?.synced != null && lyrics?.plain != null) {
                         val selectedTabIndex = if (showSyncedLyrics == true) 0 else 1
 
@@ -276,6 +296,7 @@ fun LyricsSheet(
                                 .fillMaxWidth(),
                             selectedTabIndex = selectedTabIndex,
                             containerColor = Color.Transparent,
+                            // 自定义指示器（透明隐藏）
                             indicator = { tabPositions ->
                                 if (selectedTabIndex < tabPositions.size) {
                                     TabRowDefaults.PrimaryIndicator(
@@ -285,7 +306,7 @@ fun LyricsSheet(
                                     )
                                 }
                             },
-                            divider = {}
+                            divider = {} // 隐藏分割线
                         ) {
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
@@ -293,6 +314,7 @@ fun LyricsSheet(
                                 horizontalArrangement = Arrangement.SpaceEvenly
                             ) {
                                 Spacer(modifier = Modifier.width(14.dp))
+                                // 遍历标签页标题
                                 tabTitles.forEachIndexed { index, title ->
                                     TabAnimation(
                                         modifier = Modifier.weight(1f),
@@ -322,6 +344,7 @@ fun LyricsSheet(
                 }
             }
         },
+        // 悬浮播放/暂停按钮
         floatingActionButton = {
             LargeFloatingActionButton(
                 modifier = Modifier.padding(bottom = 64.dp),
@@ -332,33 +355,36 @@ fun LyricsSheet(
             ) {
                 AnimatedContent(
                     targetState = isPlaying,
-                    label = "playPauseIconAnimation"
+                    label = "播放暂停图标动画"
                 ) { playing ->
                     if (playing) {
                         Icon(
                             modifier = Modifier.size(36.dp),
                             imageVector = Icons.Rounded.Pause,
-                            contentDescription = "Pause"
+                            contentDescription = "暂停"
                         )
                     } else {
                         Icon(
                             modifier = Modifier.size(36.dp),
                             imageVector = Icons.Rounded.PlayArrow,
-                            contentDescription = "Play"
+                            contentDescription = "播放"
                         )
                     }
                 }
             }
         },
-        floatingActionButtonPosition = FabPosition.Center,
+        floatingActionButtonPosition = FabPosition.Center, // 悬浮按钮居中
     ) { paddingValues ->
+        // 同步/静态歌词列表状态
         val syncedListState = rememberLazyListState()
         val staticListState = rememberLazyListState()
         val playerUiState by playerUiStateFlow.collectAsState()
+        // 播放进度流
         val positionFlow = remember(playerUiStateFlow) {
             playerUiStateFlow.map { it.currentPosition }
         }
 
+        // 歌词变化时滚动到顶部
         LaunchedEffect(lyrics) {
             syncedListState.scrollToItem(0)
             staticListState.scrollToItem(0)
@@ -367,8 +393,9 @@ fun LyricsSheet(
         Box(
             modifier = Modifier.fillMaxSize()
         ) {
-
+            // 根据歌词类型显示不同内容
             when (showSyncedLyrics) {
+                // 无歌词时显示加载/空状态
                 null -> {
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
@@ -379,7 +406,7 @@ fun LyricsSheet(
                             end = 24.dp
                         )
                     ) {
-                        item(key = "loader_or_empty") {
+                        item(key = "加载或空状态") {
                             Box(
                                 modifier = Modifier
                                     .fillParentMaxSize()
@@ -389,7 +416,7 @@ fun LyricsSheet(
                                 if (isLoadingLyrics) {
                                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                         Text(
-                                            text = context.resources.getString(R.string.loading_lyrics),
+                                            text = context.resources.getString(R.string.loading_lyrics), // 加载歌词中
                                             style = MaterialTheme.typography.titleMedium
                                         )
                                         Spacer(modifier = Modifier.height(8.dp))
@@ -404,6 +431,7 @@ fun LyricsSheet(
                     }
                 }
 
+                // 显示同步歌词
                 true -> {
                     lyrics?.synced?.let { synced ->
                         SyncedLyricsList(
@@ -412,8 +440,6 @@ fun LyricsSheet(
                                 .padding(
                                     start = 24.dp,
                                     end = 24.dp,
-                                    //top = paddingValues.calculateTopPadding(),
-                                    //bottom = paddingValues.calculateBottomPadding() //+ 180.dp
                                 ),
                             lines = synced,
                             listState = syncedListState,
@@ -425,10 +451,11 @@ fun LyricsSheet(
                             highlightOffsetDp = highlightOffsetDp,
                             autoscrollAnimationSpec = autoscrollAnimationSpec,
                             footer = {
+                                // 远程歌词显示来源信息
                                 if (lyrics?.areFromRemote == true) {
-                                    item(key = "provider_text") {
+                                    item(key = "来源文本") {
                                         ProviderText(
-                                            providerText = context.resources.getString(R.string.lyrics_provided_by),
+                                            providerText = context.resources.getString(R.string.lyrics_provided_by), // 歌词由以下提供
                                             uri = context.resources.getString(R.string.lrclib_uri),
                                             textAlign = TextAlign.Center,
                                             modifier = Modifier
@@ -442,6 +469,7 @@ fun LyricsSheet(
                     }
                 }
 
+                // 显示静态歌词
                 false -> {
                     lyrics?.plain?.let { plain ->
                         LazyColumn(
@@ -470,6 +498,7 @@ fun LyricsSheet(
                 }
             }
 
+            // 底部渐变背景
             val bottomPadding = paddingValues.calculateBottomPadding() + 10.dp
             val footerBaseHeight = 76.dp
 
@@ -486,10 +515,9 @@ fun LyricsSheet(
                             )
                         )
                     )
-            ) {
+            )
 
-            }
-
+            // 播放器进度条
             Box(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
@@ -517,20 +545,21 @@ fun LyricsSheet(
 @OptIn(ExperimentalSnapperApi::class)
 @Composable
 fun SyncedLyricsList(
-    lines: List<SyncedLine>,
-    listState: LazyListState,
-    positionFlow: Flow<Long>,
-    accentColor: Color,
-    textStyle: TextStyle,
-    onLineClick: (SyncedLine) -> Unit,
-    highlightZoneFraction: Float,
-    highlightOffsetDp: Dp,
-    autoscrollAnimationSpec: AnimationSpec<Float>,
+    lines: List<SyncedLine>, // 同步歌词行列表
+    listState: LazyListState, // 列表状态
+    positionFlow: Flow<Long>, // 播放进度流
+    accentColor: Color, // 强调色
+    textStyle: TextStyle, // 文本样式
+    onLineClick: (SyncedLine) -> Unit, // 点击歌词行回调
+    highlightZoneFraction: Float, // 高亮区域占比
+    highlightOffsetDp: Dp, // 高亮偏移量
+    autoscrollAnimationSpec: AnimationSpec<Float>, // 自动滚动动画配置
     modifier: Modifier = Modifier,
-    footer: LazyListScope.() -> Unit = {}
+    footer: LazyListScope.() -> Unit = {} // 列表底部内容
 ) {
     val density = LocalDensity.current
     val position by positionFlow.collectAsState(initial = 0L)
+    // 计算当前播放进度对应的歌词行索引
     val currentLineIndex by remember(position, lines) {
         derivedStateOf {
             if (lines.isEmpty()) return@derivedStateOf -1
@@ -543,11 +572,13 @@ fun SyncedLyricsList(
     }
 
     BoxWithConstraints(modifier = modifier) {
+        // 计算高亮区域参数
         val metrics = remember(maxHeight, highlightZoneFraction, highlightOffsetDp) {
             calculateHighlightMetrics(maxHeight, highlightZoneFraction, highlightOffsetDp)
         }
         val highlightOffsetPx = remember(highlightOffsetDp, density) { with(density) { highlightOffsetDp.toPx() } }
 
+        // 配置列表吸附布局
         val snapperLayoutInfo = rememberLazyListSnapperLayoutInfo(
             lazyListState = listState,
             snapOffsetForItem = { layoutInfo, item ->
@@ -557,6 +588,7 @@ fun SyncedLyricsList(
         )
         val flingBehavior = rememberSnapperFlingBehavior(layoutInfo = snapperLayoutInfo)
 
+        // 自动滚动到当前歌词行
         LaunchedEffect(currentLineIndex, lines.size, metrics) {
             if (lines.isEmpty()) return@LaunchedEffect
             if (currentLineIndex !in lines.indices) return@LaunchedEffect
@@ -581,12 +613,14 @@ fun SyncedLyricsList(
                     bottom = metrics.bottomPadding
                 )
             ) {
+                // 遍历同步歌词行
                 itemsIndexed(
                     items = lines,
                     key = { index, item -> "${item.time}_$index" }
                 ) { index, line ->
                     val nextTime = lines.getOrNull(index + 1)?.time ?: Int.MAX_VALUE
                     if (line.line.isNotBlank()) {
+                        // 显示歌词行
                         LyricLineRow(
                             line = line,
                             nextTime = nextTime,
@@ -595,10 +629,11 @@ fun SyncedLyricsList(
                             style = textStyle,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .testTag("synced_line_${line.time}"),
+                                .testTag("同步歌词行_${line.time}"),
                             onClick = { onLineClick(line) }
                         )
                     } else {
+                        // 空行显示气泡占位
                         BubblesLine(
                             positionFlow = positionFlow,
                             time = line.time,
@@ -611,21 +646,9 @@ fun SyncedLyricsList(
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                 }
+                // 添加底部内容
                 footer()
             }
-
-//            if (metrics.zoneHeight > 0.dp) {
-//                Box(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .offset(y = metrics.topPadding)
-//                        .height(metrics.zoneHeight)
-//                        .align(Alignment.TopCenter)
-//                        .clip(RoundedCornerShape(18.dp))
-//                        .background(accentColor.copy(alpha = 0.12f))
-//                        .testTag("synced_highlight_zone")
-//                )
-//            }
         }
     }
 }
@@ -633,28 +656,33 @@ fun SyncedLyricsList(
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun LyricLineRow(
-    line: SyncedLine,
-    nextTime: Int,
-    position: Long,
-    accentColor: Color,
-    style: TextStyle,
+    line: SyncedLine, // 同步歌词行
+    nextTime: Int, // 下一行时间戳
+    position: Long, // 当前播放进度
+    accentColor: Color, // 强调色
+    style: TextStyle, // 文本样式
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    onClick: () -> Unit // 点击回调
 ) {
+    // 清理歌词行文本（移除多余标签/时间戳）
     val sanitizedLine = remember(line.line) { sanitizeLyricLineText(line.line) }
+    // 清理歌词单词列表
     val sanitizedWords = remember(line.words) {
         line.words?.let(::sanitizeSyncedWords)
     }
+    // 判断当前行是否为播放中歌词行
     val isCurrentLine by remember(position, line.time, nextTime) {
         derivedStateOf { position in line.time.toLong()..<nextTime.toLong() }
     }
     val unhighlightedColor = LocalContentColor.current.copy(alpha = 0.45f)
+    // 歌词行颜色动画
     val lineColor by animateColorAsState(
         targetValue = if (isCurrentLine) accentColor else unhighlightedColor,
         animationSpec = tween(durationMillis = 250),
-        label = "lineColor"
+        label = "歌词行颜色动画"
     )
 
+    // 无单词级同步时显示整行文本
     if (sanitizedWords.isNullOrEmpty()) {
         Text(
             text = sanitizedLine,
@@ -667,6 +695,7 @@ fun LyricLineRow(
                 .padding(vertical = 4.dp, horizontal = 2.dp)
         )
     } else {
+        // 有单词级同步时按单词分行显示
         FlowRow(
             modifier = modifier
                 .clip(RoundedCornerShape(12.dp))
@@ -678,6 +707,7 @@ fun LyricLineRow(
             sanitizedWords.forEachIndexed { wordIndex, word ->
                 key("${line.time}_${word.time}_${word.word}") {
                     val nextWordTime = sanitizedWords.getOrNull(wordIndex + 1)?.time?.toLong() ?: nextTime.toLong()
+                    // 判断当前单词是否为播放中单词
                     val isCurrentWord by remember(position, word.time, nextWordTime) {
                         derivedStateOf { position in word.time.toLong()..<nextWordTime }
                     }
@@ -696,17 +726,18 @@ fun LyricLineRow(
 
 @Composable
 fun LyricWordSpan(
-    word: SyncedWord,
-    isHighlighted: Boolean,
-    style: TextStyle,
-    highlightedColor: Color,
-    unhighlightedColor: Color,
+    word: SyncedWord, // 同步歌词单词
+    isHighlighted: Boolean, // 是否高亮
+    style: TextStyle, // 文本样式
+    highlightedColor: Color, // 高亮颜色
+    unhighlightedColor: Color, // 非高亮颜色
     modifier: Modifier = Modifier
 ) {
+    // 单词颜色动画
     val color by animateColorAsState(
         targetValue = if (isHighlighted) highlightedColor else unhighlightedColor,
         animationSpec = tween(durationMillis = 200),
-        label = "wordColor"
+        label = "单词颜色动画"
     )
 
     Text(
@@ -720,10 +751,11 @@ fun LyricWordSpan(
 
 @Composable
 fun PlainLyricsLine(
-    line: String,
-    style: TextStyle,
+    line: String, // 静态歌词行文本
+    style: TextStyle, // 文本样式
     modifier: Modifier = Modifier
 ) {
+    // 清理静态歌词文本
     val sanitizedLine = remember(line) { sanitizeLyricLineText(line) }
     Text(
         text = sanitizedLine,
@@ -733,11 +765,20 @@ fun PlainLyricsLine(
     )
 }
 
+// 歌词行文本清理正则（移除开头的v数字标签）
 private val LeadingTagRegex = Regex("^v\\d+:\\s*", RegexOption.IGNORE_CASE)
 
+/**
+ * 清理歌词行文本
+ * 移除LRC时间戳和开头的版本标签
+ */
 internal fun sanitizeLyricLineText(raw: String): String =
     LyricsUtils.stripLrcTimestamps(raw).replace(LeadingTagRegex, "").trimStart()
 
+/**
+ * 清理同步歌词单词列表
+ * 移除空单词和开头标签
+ */
 internal fun sanitizeSyncedWords(words: List<SyncedWord>): List<SyncedWord> =
     words.mapIndexedNotNull { index, word ->
         val sanitized = if (index == 0) LeadingTagRegex.replace(word.word, "") else word.word
@@ -745,6 +786,13 @@ internal fun sanitizeSyncedWords(words: List<SyncedWord>): List<SyncedWord> =
         if (trimmed.isEmpty()) null else word.copy(word = trimmed)
     }
 
+/**
+ * 高亮区域参数模型
+ * @param topPadding 顶部内边距
+ * @param bottomPadding 底部内边距
+ * @param zoneHeight 高亮区域高度
+ * @param centerFromTop 高亮区域中心距顶部距离
+ */
 internal data class HighlightZoneMetrics(
     val topPadding: Dp,
     val bottomPadding: Dp,
@@ -752,6 +800,12 @@ internal data class HighlightZoneMetrics(
     val centerFromTop: Dp
 )
 
+/**
+ * 计算高亮区域参数
+ * @param containerHeight 容器高度
+ * @param highlightZoneFraction 高亮区域占比
+ * @param highlightOffset 高亮偏移量
+ */
 internal fun calculateHighlightMetrics(
     containerHeight: Dp,
     highlightZoneFraction: Float,
@@ -775,6 +829,12 @@ internal fun calculateHighlightMetrics(
     )
 }
 
+/**
+ * 计算高亮吸附偏移量（像素）
+ * @param viewportHeight 视口高度
+ * @param itemSize 列表项高度
+ * @param highlightOffsetPx 高亮偏移量（像素）
+ */
 internal fun highlightSnapOffsetPx(
     viewportHeight: Int,
     itemSize: Int,
@@ -789,6 +849,13 @@ internal fun highlightSnapOffsetPx(
     return (clampedCenter - halfItem).roundToInt()
 }
 
+/**
+ * 动画滚动到指定索引的列表项（吸附对齐）
+ * @param listState 列表状态
+ * @param layoutInfo 吸附布局信息
+ * @param targetIndex 目标索引
+ * @param animationSpec 动画配置
+ */
 internal suspend fun animateToSnapIndex(
     listState: LazyListState,
     layoutInfo: SnapperLayoutInfo,
@@ -807,6 +874,7 @@ internal suspend fun animateToSnapIndex(
             val delta = value - previous
             val consumed = scrollBy(delta)
             previous = value
+            // 滚动未完全消费时取消动画（避免卡顿）
             if (abs(delta - consumed) > 0.5f) cancelAnimation()
         }
     }
