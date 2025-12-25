@@ -104,7 +104,7 @@ fun HomeScreen(
         }
     }
 
-    val yourMixSong: String = "今日为你准备的歌单"
+    val yourMixSong: String = "今日专属推荐歌单"
 
     // 2) Observar sólo el currentSong (o null) para saber si mostrar padding
     val currentSong by remember(playerViewModel.stablePlayerState) {
@@ -175,7 +175,7 @@ fun HomeScreen(
                             if (yourMixSongs.isNotEmpty()) {
                                 playerViewModel.playSongsShuffled(
                                     songsToPlay = yourMixSongs,
-                                    queueName = "Your Mix"
+                                    queueName = "你的专属歌单"
                                 )
                             }
                         }
@@ -191,7 +191,7 @@ fun HomeScreen(
                             padding = 14.dp,
                             height = 400.dp,
                             onSongClick = { song ->
-                                playerViewModel.showAndPlaySong(song, yourMixSongs, "Your Mix")
+                                playerViewModel.showAndPlaySong(song, yourMixSongs, "你的专属歌单")
                             }
                         )
                     }
@@ -297,7 +297,7 @@ fun YourMixHeader(
         ) {
             // Your Mix Title
             Text(
-                text = "Your\nMix",
+                text = "你的\n专属歌单",
                 style = ExpTitleTypography.displayLarge,
                 color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier
