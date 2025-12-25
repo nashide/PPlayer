@@ -147,7 +147,7 @@ fun SettingsTopBar(
     collapseFraction: Float,
     headerHeight: Dp,
     onBackPressed: () -> Unit,
-    title: String = "Settings",
+    title: String = "设置",
     expandedTitleStartPadding: Dp = 0.dp
 ) {
     val surfaceColor = MaterialTheme.colorScheme.surface
@@ -347,7 +347,7 @@ fun SettingsScreen(
             item(key = "music_management_section") {
                 // Sección de gestión de música
                 SettingsSection(
-                    title = "Music Management",
+                    title = "音乐管理",
                     icon = {
                         Icon(
                             imageVector = Icons.Rounded.MusicNote,
@@ -358,8 +358,8 @@ fun SettingsScreen(
                 ) {
                     Column(modifier = Modifier.clip(shape = RoundedCornerShape(24.dp))) {
                         SettingsItem(
-                            title = "Excluded Directories",
-                            subtitle = "Folders here will be skipped when scanning your library.",
+                            title = "排除目录",
+                            subtitle = "扫描曲库时，此处的文件夹将被跳过",
                             leadingIcon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Folder,
@@ -370,7 +370,7 @@ fun SettingsScreen(
                             trailingIcon = {
                                 Icon(
                                     imageVector = Icons.Rounded.ChevronRight,
-                                    contentDescription = "Abrir selector",
+                                    contentDescription = "打开选择器",
                                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             },
@@ -400,7 +400,7 @@ fun SettingsScreen(
                                 if (isSyncing) {
                                     Toast.makeText(
                                         context,
-                                        "Library is already refreshing",
+                                        "曲库正在刷新中",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                     return@RefreshLibraryItem
@@ -408,7 +408,7 @@ fun SettingsScreen(
                                 refreshRequested = true
                                 Toast.makeText(
                                     context,
-                                    "Refreshing library…",
+                                    "正在刷新曲库…",
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 settingsViewModel.refreshLibrary()
@@ -416,8 +416,8 @@ fun SettingsScreen(
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         SettingsItem(
-                            title = "Reset Imported Lyrics",
-                            subtitle = "Remove all imported lyrics from the database.",
+                            title = "重置已导入歌词",
+                            subtitle = "从数据库中移除所有已导入歌词",
                             leadingIcon = {
                                 Icon(
                                     imageVector = Icons.Outlined.ClearAll,
@@ -779,7 +779,7 @@ fun SettingsScreen(
             item(key = "about_section") {
                 // About section
                 SettingsSection(
-                    title = "About",
+                    title = "关于",
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.Info,
@@ -794,7 +794,7 @@ fun SettingsScreen(
                             .clip(shape = RoundedCornerShape(24.dp))
                     ) {
                         SettingsItem(
-                            title = "About PixelPlayer",
+                            title = "关于 Pixel播放器",
                             subtitle = "App version, credits, and more.",
                             leadingIcon = {
                                 Icon(
@@ -985,12 +985,12 @@ private fun RefreshLibraryItem(
                     verticalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
                     Text(
-                        text = "Refresh Library",
+                        text = "刷新曲库",
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
-                        text = "Tap the sync button to rescan and update your library.",
+                        text = "点击同步按钮，重新扫描并更新你的曲库",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
