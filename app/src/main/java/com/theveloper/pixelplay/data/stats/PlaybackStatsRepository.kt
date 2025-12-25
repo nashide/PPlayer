@@ -937,9 +937,9 @@ class PlaybackStatsRepository @Inject constructor(
 }
 
 enum class StatsTimeRange(val displayName: String) {
-    DAY("Today"),
-    WEEK("This Week"),
-    MONTH("This Month"),
-    YEAR("This Year"),
-    ALL("All Time")
+    DAY("今日"),
+    WEEK("本周"),
+    MONTH("本月"),
+    YEAR("今年"),
+    ALL("所有时间")
 }
