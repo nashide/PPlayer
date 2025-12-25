@@ -175,7 +175,7 @@ fun HomeScreen(
                             if (yourMixSongs.isNotEmpty()) {
                                 playerViewModel.playSongsShuffled(
                                     songsToPlay = yourMixSongs,
-                                    queueName = "你的专属歌单"
+                                    queueName = "今日推荐"
                                 )
                             }
                         }
@@ -191,7 +191,7 @@ fun HomeScreen(
                             padding = 14.dp,
                             height = 400.dp,
                             onSongClick = { song ->
-                                playerViewModel.showAndPlaySong(song, yourMixSongs, "你的专属歌单")
+                                playerViewModel.showAndPlaySong(song, yourMixSongs, "今日推荐")
                             }
                         )
                     }
@@ -297,7 +297,7 @@ fun YourMixHeader(
         ) {
             // Your Mix Title
             Text(
-                text = "你的\n专属歌单",
+                text = "今日\n推荐",
                 style = ExpTitleTypography.displayLarge,
                 color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier
@@ -332,7 +332,7 @@ fun YourMixHeader(
         ) {
             Icon(
                 painter = painterResource(R.drawable.rounded_shuffle_24),
-                contentDescription = "Shuffle Play",
+                contentDescription = "随机播放",
                 modifier = Modifier.size(36.dp)
             )
         }
