@@ -585,13 +585,13 @@ private fun ListeningHabitsCard(
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             Text(
-                text = "Listening habits",
+                text = "听歌习惯",
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface
             )
             if (summary == null) {
                 Text(
-                    text = "We will surface your habits once we know you better.",
+                    text = "待我们更了解你的偏好后，便会呈现你的听歌习惯。",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -602,17 +602,17 @@ private fun ListeningHabitsCard(
                 ) {
                     HabitMetric(
                         icon = Icons.Outlined.History,
-                        label = "Total sessions",
+                        label = "总听歌次数",
                         value = summary.totalSessions.toString()
                     )
                     HabitMetric(
                         icon = Icons.Outlined.Hearing,
-                        label = "Avg session",
+                        label = "平均听歌时长",
                         value = formatListeningDurationCompact(summary.averageSessionDurationMs)
                     )
                     HabitMetric(
                         icon = Icons.Outlined.Bolt,
-                        label = "Longest session",
+                        label = "最长听歌时段",
                         value = if (summary.longestSessionDurationMs > 0L) {
                             formatListeningDurationCompact(summary.longestSessionDurationMs)
                         } else {
@@ -621,24 +621,24 @@ private fun ListeningHabitsCard(
                     )
                     HabitMetric(
                         icon = Icons.Outlined.AutoGraph,
-                        label = "Sessions/day",
+                        label = "日均听歌次数",
                         value = String.format(Locale.US, "%.1f", summary.averageSessionsPerDay)
                     )
                 }
                 Divider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f))
                 HighlightRow(
-                    title = "Most active day",
+                    title = "最活跃日",
                     value = summary.peakDayLabel ?: "—",
                     supporting = if (summary.peakDayDurationMs > 0L) {
                         formatListeningDurationCompact(summary.peakDayDurationMs)
                     } else {
-                        "No playback yet"
+                        "暂无播放记录"
                     },
                     icon = Icons.Outlined.CalendarMonth
                 )
                 summary.peakTimeline?.let { peak ->
                     HighlightRow(
-                        title = "Peak timeline slot",
+                        title = "听歌高峰时段",
                         value = peak.label,
                         supporting = formatListeningDurationCompact(peak.totalDurationMs),
                         icon = Icons.Outlined.AutoGraph
@@ -751,20 +751,20 @@ private enum class TimelineMetric(
     val formatValue: (PlaybackStatsRepository.TimelineEntry) -> String
 ) {
     ListeningTime(
-        displayName = "Listening time",
-        description = "Total listening captured in the selected range.",
+        displayName = "听歌时长",
+        description = "所选时间范围内的累计听歌时长",
         extractValue = { it.totalDurationMs.toDouble() },
         formatValue = { formatListeningDurationCompact(it.totalDurationMs) }
     ),
     PlayCount(
-        displayName = "Play count",
-        description = "How many sessions you completed per segment.",
+        displayName = "播放次数",
+        description = "各时段的听歌次数统计",
         extractValue = { it.playCount.toDouble() },
         formatValue = { "${it.playCount} plays" }
     ),
     AverageSession(
-        displayName = "Avg. session",
-        description = "Average listening length for each segment.",
+        displayName = "平均听歌时长",
+        description = "各时段平均听歌时长",
         extractValue = { entry ->
             if (entry.playCount > 0) entry.totalDurationMs.toDouble() / entry.playCount.toDouble() else 0.0
         },
@@ -781,23 +781,23 @@ private enum class CategoryDimension(
     val highlightTitle: String
 ) {
     Genre(
-        displayName = "Genre",
-        cardTitle = "Listening by genre",
+        displayName = "音乐流派",
+        cardTitle = "按曲风分类的听歌数据",
         highlightTitle = "Top genre"
     ),
     Artist(
-        displayName = "Artist",
-        cardTitle = "Listening by artist",
+        displayName = "歌手",
+        cardTitle = "按歌手分类的听歌数据",
         highlightTitle = "Top artist"
     ),
     Album(
-        displayName = "Album",
-        cardTitle = "Listening by album",
+        displayName = "专辑",
+        cardTitle = "按专辑分类的听歌数据",
         highlightTitle = "Top album"
     ),
     Song(
-        displayName = "Song",
-        cardTitle = "Listening by song",
+        displayName = "歌曲",
+        cardTitle = "按歌曲分类的听歌数据",
         highlightTitle = "Top song"
     )
 }
