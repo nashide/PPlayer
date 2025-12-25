@@ -574,7 +574,7 @@ fun FullPlayerContent(
                             AnimatedVisibility(visible = (!isRemotePlaybackActive)) {
                                 Text(
                                     modifier = Modifier.padding(start = 18.dp),
-                                    text = "Now Playing",
+                                    text = "正在播放",
                                     maxLines = 1,
                                     overflow = TextOverflow.Ellipsis,
                                     style = MaterialTheme.typography.labelLargeEmphasized,
