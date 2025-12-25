@@ -387,7 +387,7 @@ private fun StatsSummaryCard(
                     )
                     if (summary != null) {
                         Text(
-                            text = "Across ${summary.totalPlayCount} plays",
+                            text = "累计播放 ${summary.totalPlayCount} 次",
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -818,13 +818,13 @@ private fun DailyListeningDistributionSection(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "Daily rhythm",
+            text = "每日听歌节奏",
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onSurface
         )
         Text(
-            text = "See when you listen most across the day.",
+            text = "查看你一天中听歌最频繁的时段",
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -833,7 +833,7 @@ private fun DailyListeningDistributionSection(
         val isWeeklyRange = summary?.range == StatsTimeRange.WEEK
         if (distribution == null || distribution.buckets.isEmpty()) {
             Text(
-                text = "Press play to build your daily listening fingerprint.",
+                text = "点击播放，生成你的专属每日听歌印记",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -841,7 +841,7 @@ private fun DailyListeningDistributionSection(
             val peakBucket = distribution.buckets.maxByOrNull { it.totalDurationMs }
             if (peakBucket != null) {
                 HighlightRow(
-                    title = "Peak window",
+                    title = "听歌高峰时段",
                     value = formatMinutesWindowLabel(peakBucket.startMinute, peakBucket.endMinuteExclusive),
                     supporting = formatListeningDurationCompact(peakBucket.totalDurationMs),
                     icon = Icons.Outlined.Bolt
@@ -967,7 +967,7 @@ private fun ListeningTimelineSection(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "Listening timeline",
+            text = "听歌时间轴",
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onSurface
@@ -1012,7 +1012,7 @@ private fun ListeningTimelineSection(
         val timeline = summary?.timeline.orEmpty()
         if (timeline.isEmpty() || timeline.all { it.totalDurationMs == 0L && it.playCount == 0 }) {
             Text(
-                text = "Press play to build your listening timeline.",
+                text = "点击播放，生成你的专属听歌时间轴",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -1028,7 +1028,7 @@ private fun ListeningTimelineSection(
             }
             summary?.peakTimeline?.let { peak ->
                 HighlightRow(
-                    title = "Peak segment",
+                    title = "听歌高峰区间",
                     value = peak.label,
                     supporting = when (selectedMetric) {
                         TimelineMetric.ListeningTime -> formatListeningDurationCompact(peak.totalDurationMs)
@@ -1058,13 +1058,13 @@ private fun CategoryMetricsSection(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "Top categories",
+            text = "热门分类榜单",
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onSurface
         )
         Text(
-            text = "Compare how you listen across genres, artists, albums, and songs.",
+            text = "对比你在不同曲风、歌手、专辑及单曲上的听歌偏好",
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -1146,7 +1146,7 @@ private fun CategoryMetricsSection(
 
         if (entries.isEmpty()) {
             Text(
-                text = "Press play to surface your listening highlights in this view.",
+                text = "点击播放，在当前视图呈现你的听歌高光时刻",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -1418,14 +1418,14 @@ private fun TopArtistsCard(
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             Text(
-                text = "Top artists",
+                text = "热门歌手",
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface
             )
             val artists = summary?.topArtists.orEmpty()
             if (artists.isEmpty()) {
                 Text(
-                    text = "Keep listening and your favorite artists will show up here.",
+                    text = "继续听歌，你喜欢的歌手就会在这里出现",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -1448,7 +1448,7 @@ private fun TopArtistsCard(
                                         overflow = TextOverflow.Ellipsis
                                     )
                                     Text(
-                                        text = "${artistSummary.playCount} plays • ${artistSummary.uniqueSongs} tracks",
+                                        text = "${artistSummary.playCount} 次 • ${artistSummary.uniqueSongs} 首",
                                         style = MaterialTheme.typography.bodySmall,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                                         maxLines = 1,
@@ -1515,14 +1515,14 @@ private fun TopAlbumsCard(
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             Text(
-                text = "Top albums",
+                text = "热门专辑",
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface
             )
             val albums = summary?.topAlbums.orEmpty()
             if (albums.isEmpty()) {
                 Text(
-                    text = "Albums you revisit often will appear soon.",
+                    text = "你常重温的专辑，即将在这里呈现",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -1624,7 +1624,7 @@ private fun SongStatsCard(
 
             if (songs.isEmpty()) {
                 Text(
-                    text = "Listen to your favorites to see them highlighted here.",
+                    text = "聆听你喜爱的曲目，即可在此看到它们的高光展示",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -1661,7 +1661,7 @@ private fun SongStatsCard(
                                         overflow = TextOverflow.Ellipsis
                                     )
                                     Text(
-                                        text = "${songSummary.playCount} plays • ${formatListeningDurationCompact(songSummary.totalDurationMs)}",
+                                        text = "${songSummary.playCount} 次 • ${formatListeningDurationCompact(songSummary.totalDurationMs)}",
                                         style = MaterialTheme.typography.labelSmall,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                                         maxLines = 1,
