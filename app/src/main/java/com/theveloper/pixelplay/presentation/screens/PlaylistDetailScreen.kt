@@ -357,11 +357,11 @@ fun PlaylistDetailScreen(
                     ) {
                         Icon(
                             Icons.Rounded.Shuffle,
-                            contentDescription = "Shuffle",
+                            contentDescription = "随机播放",
                             modifier = Modifier.size(ButtonDefaults.IconSize)
                         )
                         Spacer(Modifier.size(ButtonDefaults.IconSpacing))
-                        Text("Shuffle")
+                        Text("随机播放")
                     }
                 }
 
