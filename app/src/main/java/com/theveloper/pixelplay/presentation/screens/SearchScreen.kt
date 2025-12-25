@@ -334,7 +334,7 @@ fun SearchScreen(
                                         .padding(16.dp),
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    Text("No recent searches", style = MaterialTheme.typography.bodyLarge)
+                                    Text("暂无最近搜索", style = MaterialTheme.typography.bodyLarge)
                                 }
                             }
                         }
@@ -675,11 +675,11 @@ fun SearchResultsList(
                 item(key = "header_${filterType.name}") {
                     SearchResultSectionHeader(
                         title = when (filterType) {
-                            SearchFilterType.SONGS -> "Songs"
-                            SearchFilterType.ALBUMS -> "Albums"
-                            SearchFilterType.ARTISTS -> "Artists"
-                            SearchFilterType.PLAYLISTS -> "Playlists"
-                            else -> "Results"
+                            SearchFilterType.SONGS -> "歌曲"
+                            SearchFilterType.ALBUMS -> "专辑"
+                            SearchFilterType.ARTISTS -> "歌手"
+                            SearchFilterType.PLAYLISTS -> "歌单"
+                            else -> "搜索结果"
                         }
                     )
                 }
