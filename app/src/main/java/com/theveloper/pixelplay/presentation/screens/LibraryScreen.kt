@@ -300,7 +300,7 @@ fun LibraryScreen(
                     } else {
                         Text(
                             modifier = Modifier.padding(start = 8.dp),
-                            text = "Library",
+                            text = "曲库",
                             fontFamily = GoogleSansRounded,
                             //style = ExpTitleTypography.titleMedium,
                             fontWeight = FontWeight.ExtraBold,
@@ -391,7 +391,7 @@ fun LibraryScreen(
                         TabAnimation(
 //                        modifier = Modifier.aspectRatio(1f),
                             index = -1, // A non-matching index to keep it unselected
-                            title = "Edit",
+                            title = "编辑",
                             selectedIndex = pagerState.currentPage,
                             onClick = { showReorderTabsSheet = true }
                         ) {
@@ -673,7 +673,7 @@ fun LibraryScreen(
                                                 )
                                             },
                                             onPlaySong = { song, queue ->
-                                                playerViewModel.showAndPlaySong(song, queue, currentFolder?.name ?: "Folder")
+                                                playerViewModel.showAndPlaySong(song, queue, currentFolder?.name ?: "文件夹")
                                             },
                                             onMoreOptionsClick = stableOnMoreOptionsClick,
                                             isPlaylistView = playerUiState.isFoldersPlaylistView,
@@ -689,7 +689,7 @@ fun LibraryScreen(
                                             horizontalAlignment = Alignment.CenterHorizontally,
                                             verticalArrangement = Arrangement.Center
                                         ) {
-                                            Text("All files access is required to browse folders.")
+                                            Text("浏览文件夹需获取所有文件访问权限。")
                                             Spacer(modifier = Modifier.height(8.dp))
                                             Button(onClick = {
                                                 val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
@@ -1508,8 +1508,8 @@ fun LibraryFavoritesTab(
             ) {
                 Icon(Icons.Filled.FavoriteBorder, contentDescription = null, modifier = Modifier.size(48.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(Modifier.height(8.dp))
-                Text("No liked songs yet.", style = MaterialTheme.typography.titleMedium)
-                Text("Touch the heart icon in the player to add songs.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
+                Text("暂未收藏任何歌曲。", style = MaterialTheme.typography.titleMedium)
+                Text("点击播放器中的爱心图标，即可添加歌曲。", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
             }
         }
     } else {
@@ -1551,7 +1551,7 @@ fun LibraryFavoritesTab(
                                 playerViewModel.showAndPlaySong(
                                     song,
                                     favoriteSongs,
-                                    "Liked Songs"
+                                    "收藏歌曲"
                                 )
                             }
                         )
@@ -1662,14 +1662,14 @@ fun LibrarySongsTab(
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Icon(
                             painter = painterResource(id = R.drawable.rounded_music_off_24),
-                            contentDescription = "No songs found",
+                            contentDescription = "未找到歌曲",
                             modifier = Modifier.size(48.dp),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Spacer(Modifier.height(8.dp))
-                        Text("No songs found in your library.", style = MaterialTheme.typography.titleMedium)
+                        Text("曲库中未找到歌曲", style = MaterialTheme.typography.titleMedium)
                         Text(
-                            "Try rescanning your library in settings if you have music on your device.",
+                            "若设备中已存储音乐，可前往设置页面重新扫描媒体库。",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             textAlign = TextAlign.Center
@@ -1966,7 +1966,7 @@ fun EnhancedSongListItem(
                 ) {
                     Icon(
                         imageVector = Icons.Rounded.MoreVert,
-                        contentDescription = "More options for ${song.title}",
+                        contentDescription = "${song.title} 的更多选项",
                         modifier = Modifier.size(24.dp)
                     )
                 }
@@ -2029,7 +2029,7 @@ fun LibraryAlbumsTab(
             .padding(16.dp), contentAlignment = Alignment.Center) {
             Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Icon(Icons.Filled.Album, null, Modifier.size(48.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f))
-                Text("No albums found.", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text("未发现专辑", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
     } else {
@@ -2222,7 +2222,7 @@ fun AlbumGridItemRedesigned(
                         overflow = TextOverflow.Ellipsis
                     )
                     Text(album.artist, style = MaterialTheme.typography.bodySmall, color = onGradientColor.copy(alpha = 0.85f), maxLines = 1, overflow = TextOverflow.Ellipsis)
-                    Text("${album.songCount} Songs", style = MaterialTheme.typography.bodySmall, color = onGradientColor.copy(alpha = 0.7f), maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    Text("${album.songCount} 首", style = MaterialTheme.typography.bodySmall, color = onGradientColor.copy(alpha = 0.7f), maxLines = 1, overflow = TextOverflow.Ellipsis)
                 }
             }
         }
