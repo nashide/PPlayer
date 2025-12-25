@@ -501,7 +501,7 @@ fun QueueBottomSheet(
                     horizontalArrangement = Arrangement.Absolute.SpaceBetween
                 ) {
                     Text(
-                        text     = "Next Up",
+                        text     = "接下来",
                         style    = MaterialTheme.typography.displayMedium,
                         modifier = Modifier
                             .padding(horizontal = 12.dp, vertical = 8.dp)
