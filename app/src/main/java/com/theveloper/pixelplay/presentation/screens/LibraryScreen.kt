@@ -508,7 +508,7 @@ fun LibraryScreen(
                                 ?: sanitizedSortOptions.first()
 
                             LibrarySortBottomSheet(
-                                title = "Sort by",
+                                title = "排序",
                                 options = sanitizedSortOptions,
                                 selectedOption = selectedOptionForSheet,
                                 onDismiss = { playerViewModel.hideSortingSheet() },
