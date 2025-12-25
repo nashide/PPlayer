@@ -229,7 +229,7 @@ fun SearchScreen(
                         .clip(RoundedCornerShape(searchbarCornerRadius)),
                     placeholder = {
                         Text(
-                            "Search...",
+                            "搜索...",
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.primary
                         )
