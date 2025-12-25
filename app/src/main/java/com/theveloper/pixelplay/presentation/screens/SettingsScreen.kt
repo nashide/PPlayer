@@ -574,7 +574,7 @@ fun SettingsScreen(
                             options = mapOf(
                                 LaunchTab.HOME to "在听",
                                 LaunchTab.SEARCH to "搜索",
-                                LaunchTab.LIBRARY to "音乐库",
+                                LaunchTab.LIBRARY to "曲库",
                             ),
                             selectedKey = uiState.launchTab,
                             onSelectionChanged = { settingsViewModel.setLaunchTab(it) },
