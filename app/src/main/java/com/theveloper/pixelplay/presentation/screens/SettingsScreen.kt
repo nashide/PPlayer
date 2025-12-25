@@ -429,8 +429,8 @@ fun SettingsScreen(
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         SettingsItem(
-                            title = "Artists",
-                            subtitle = "Multi-artist parsing and organization options.",
+                            title = "歌手",
+                            subtitle = "多艺人解析与整理选项",
                             leadingIcon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Person,
